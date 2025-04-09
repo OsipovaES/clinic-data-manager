@@ -1,0 +1,46 @@
+.head {
+  top: 0;
+  width: 100%;
+  height: 100px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.04);
+  background: #eef9ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  z-index: 100;
+  padding: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.logoText {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.btnWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 570px) {
+  .head {
+    flex-direction: column;
+    align-items: center;
+    height: 150px;
+  }
+}

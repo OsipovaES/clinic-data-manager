@@ -1,0 +1,22 @@
+.adminPanel {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.cardContainer > * {
+  flex: 1 1 calc(33.33% - 20px);
+  max-width: calc(33.33% - 20px);
+  min-width: 300px;
+}
+
+button {
+  margin-top: 10px;
+}
