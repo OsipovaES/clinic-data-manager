@@ -1,15 +1,8 @@
 import styles from "./form.module.css";
 import { Input } from "../Input";
 import { Button } from "../Button";
-import { Select } from "../Select";
 
-export const Form = ({
-  description,
-  inputs,
-  selects,
-  onSubmit,
-  buttonText,
-}) => {
+export const Form = ({ description, inputs, onSubmit, buttonText }) => {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       {description && <p className={styles.description}>{description}</p>}
@@ -26,19 +19,6 @@ export const Form = ({
             value={input.value}
             onChange={input.onChange}
             error={input.error}
-          />
-        ))}
-
-      {/* Рендеринг селектов */}
-      {selects &&
-        selects.map((select, index) => (
-          <Select
-            key={index}
-            label={select.label}
-            name={select.name}
-            value={select.value}
-            onChange={select.onChange}
-            options={select.options}
           />
         ))}
 

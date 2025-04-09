@@ -1,9 +1,5 @@
 import { Router } from "express";
-import {
-  createTreatment,
-  getTreatmentById,
-  updatePatientHistory,
-} from "../db/queries.js";
+import { createTreatment, getTreatmentById } from "../db/queries.js";
 
 const router = Router();
 
