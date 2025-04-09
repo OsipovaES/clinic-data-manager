@@ -1,8 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Registration } from "../pages/Registration";
-import { Requests } from "../pages/Requests";
-import { CreateRequest } from "../pages/CreateRequest";
-import { AdminPanel } from "../pages/AdminPanel";
+import { ControlPanel } from "../pages/ControlPanel";
 import { Login } from "../pages/Login";
 
 export const AppRouter = () => {
@@ -10,9 +8,7 @@ export const AppRouter = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Registration />} />
-      <Route path="/requests" element={<Requests />} />
-      <Route path="/create-request" element={<CreateRequest />} />
-      <Route path="/admin-panel" element={<AdminPanel />} />
+      <Route path="/controlPanel" element={<ControlPanel />} />
     </Routes>
   );
 };

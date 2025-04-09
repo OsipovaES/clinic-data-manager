@@ -8,7 +8,7 @@ export const Footer = () => {
         <span className={styles.italic}>Все права защищены</span>
       </div>
       <div className={styles.right}>
-        <span>Осипова Елизавета, Санкт-Петербург 2024</span>
+        <span>Осипова Елизавета, Санкт-Петербург 2025</span>
       </div>
     </footer>
   );

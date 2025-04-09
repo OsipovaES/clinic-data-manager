@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Form } from "../../components/Form";
 import { Layout } from "../../components/layout";
 
-// Схема валидации
+// Схема валидации для регистрации врача
 const registrationSchema = z
   .object({
     name: z
@@ -75,7 +75,7 @@ export const Registration = () => {
 
       registrationSchema.parse(formData);
 
-      const response = await fetch("/api/users/register", {
+      const response = await fetch("/api/doctors/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -87,7 +87,6 @@ export const Registration = () => {
         return;
       }
 
-      await response.json();
       alert("Регистрация успешна!");
       navigate("/login");
     } catch (error) {

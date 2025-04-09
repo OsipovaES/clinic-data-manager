@@ -1,25 +1,24 @@
-import express from "express";
+import { Router } from "express";
 import bcrypt from "bcrypt";
-import { registerUser, findUserByUsername } from "../db/queries.js";
+import { registerDoctor, findDoctorByUsername } from "../db/queries.js";
+const router = Router();
 
-const router = express.Router();
-
-// Регистрация
+// Регистрация врача
 router.post("/register", async (req, res) => {
   const { name, phone, email, username, password } = req.body;
 
   try {
-    const existingUser = await findUserByUsername(username);
-    if (existingUser) {
+    const existingDoctor = await findDoctorByUsername(username);
+    if (existingDoctor) {
       return res
         .status(400)
-        .json({ message: "Пользователь с таким логином уже существует" });
+        .json({ message: "Врач с таким логином уже существует" });
     }
 
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    const user = await registerUser({
+    const doctor = await registerDoctor({
       name,
       phone,
       email,
@@ -27,34 +26,34 @@ router.post("/register", async (req, res) => {
       passwordHash,
     });
 
-    res.status(201).json({ user });
+    res.status(201).json({ doctor });
   } catch (error) {
     res.status(500).json({ message: "Ошибка сервера", error });
   }
 });
 
-// Авторизация
+// Авторизация врача
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const user = await findUserByUsername(username);
+    const doctor = await findDoctorByUsername(username);
 
-    if (!user) {
+    if (!doctor) {
       return res.status(401).json({ message: "Неверный логин или пароль" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password_hash);
+    const isMatch = await bcrypt.compare(password, doctor.password_hash);
     if (!isMatch) {
       return res.status(401).json({ message: "Неверный логин или пароль" });
     }
 
     res.json({
       message: "Авторизация успешна",
-      user: {
-        id: user.id,
-        username: user.username,
-        role: user.role,
+      doctor: {
+        id: doctor.id,
+        username: doctor.username,
+        role: doctor.role,
       },
     });
   } catch (error) {

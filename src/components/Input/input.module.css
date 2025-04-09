@@ -1,41 +1,43 @@
 .inputWrapper {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
 }
 
 .label {
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
   color: #333;
 }
 
 .input {
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #000;
-  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #c3e5e0;
+  border-radius: 10px;
   outline: none;
-  background-color: #fff;
+  background-color: #f9fefe;
   color: #333;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .input::placeholder {
-  color: #888;
+  color: #aaa;
 }
 
 .input:focus {
-  border-color: #007bff;
+  border-color: #5db3a9;
+  box-shadow: 0 0 0 3px rgba(93, 179, 169, 0.15);
 }
 
 .inputError {
-  border-color: #d9534f;
-  background-color: #fff6f6;
+  border-color: #e57373;
+  background-color: #fff5f5;
 }
 
 .errorMessage {
-  color: #d9534f;
+  color: #e53935;
   font-size: 12px;
   margin-top: -4px;
 }

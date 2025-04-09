@@ -4,6 +4,7 @@ import { Form } from "../../components/Form";
 import { Layout } from "../../components/layout";
 import { z } from "zod";
 
+// Схема валидации для входа врача
 const loginSchema = z.object({
   username: z.string().min(1, "Логин обязателен"),
   password: z.string().min(1, "Пароль обязателен"),
@@ -47,7 +48,7 @@ export const Login = () => {
     }
 
     try {
-      const response = await fetch("/api/users/login", {
+      const response = await fetch("/api/doctors/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -59,14 +60,10 @@ export const Login = () => {
         return;
       }
 
-      const { user } = await response.json();
-      alert("Вход успешен!");
+      alert("Авторизация успешна!");
 
-      if (user.role === "admin") {
-        navigate("/admin-panel");
-      } else {
-        navigate("/requests");
-      }
+      // Перенаправляем на страницу после авторизации
+      navigate("/requests");
     } catch (error) {
       console.log(error);
       setErrors({ form: "Ошибка сервера. Попробуйте позже." });

@@ -1,7 +1,8 @@
 import express from "express";
 import { config } from "dotenv";
-import usersRouter from "./routes/users.js";
-import requestsRouter from "./routes/requests.js";
+import doctorsRouter from "./routes/doctors.js";
+import patientsRouter from "./routes/patients.js";
+import treatmentsRouter from "./routes/treatments.js";
 
 config();
 
@@ -12,8 +13,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // API Routes
-app.use("/api/requests", requestsRouter);
-app.use("/api/users", usersRouter);
+app.use("/api/doctors", doctorsRouter);
+app.use("/api/patients", patientsRouter);
+app.use("/api/treatments", treatmentsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
