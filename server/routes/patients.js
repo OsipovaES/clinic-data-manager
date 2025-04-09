@@ -13,7 +13,7 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     const patients = await getAllPatients();
-    res.json(patients);
+    res.json(patients.map((patient) => ({ ...patient, id: patient.id })));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const newPatient = await createPatient(req.body);
-    res.status(201).json(newPatient);
+    res.status(201).json({ ...newPatient, id: newPatient.id });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -37,7 +37,7 @@ router.get("/:id", async (req, res) => {
     if (!patient) {
       return res.status(404).json({ error: "Пациент не найден" });
     }
-    res.json(patient);
+    res.json({ ...patient, id: patient.id });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -48,7 +48,7 @@ router.put("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const updatedPatient = await updatePatient(id, req.body);
-    res.json(updatedPatient);
+    res.json({ ...updatedPatient, id: updatedPatient.id });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -64,6 +64,29 @@ router.get("/:id/history", async (req, res) => {
     }
     res.json(history);
   } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post("/", async (req, res) => {
+  const { patientId, medications, treatmentDate, description } = req.body;
+
+  try {
+    const newTreatment = await createTreatment({
+      patientId,
+      medications,
+      treatmentDate,
+      description,
+    });
+
+    const updatedHistory = await updatePatientHistory(patientId, newTreatment);
+
+    res.status(201).json({
+      treatment: newTreatment,
+      patientHistory: updatedHistory,
+    });
+  } catch (error) {
+    console.error("Ошибка добавления лечения:", error);
     res.status(500).json({ error: error.message });
   }
 });

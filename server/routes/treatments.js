@@ -1,14 +1,31 @@
 import { Router } from "express";
-import { createTreatment, getTreatmentById } from "../db/queries.js"; // Функции для лечения
+import {
+  createTreatment,
+  getTreatmentById,
+  updatePatientHistory,
+} from "../db/queries.js";
 
 const router = Router();
 
 // Добавление нового лечения
 router.post("/", async (req, res) => {
+  const { patientId, medications, treatmentDate, description } = req.body;
+
   try {
-    const newTreatment = await createTreatment(req.body);
-    res.status(201).json(newTreatment);
+    const newTreatment = await createTreatment({
+      patientId,
+      medications,
+      treatmentDate,
+      description,
+    });
+
+    const updatedPatient = await updatePatientHistory(patientId, newTreatment);
+    res.status(201).json({
+      treatment: newTreatment,
+      patient: updatedPatient,
+    });
   } catch (error) {
+    console.error("Ошибка добавления лечения:", error);
     res.status(500).json({ error: error.message });
   }
 });

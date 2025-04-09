@@ -85,7 +85,8 @@ const createTreatment = async (data) => {
 
   const result = await pool.query(
     `INSERT INTO treatments (patient_id, medications, date_of_treatment, description)
-       VALUES ($1, $2, $3::date, $4) RETURNING *`,
+     VALUES ($1, $2, $3::date, $4)
+     RETURNING *`,
     [patientId, medications, dateOfTreatment, description]
   );
 
